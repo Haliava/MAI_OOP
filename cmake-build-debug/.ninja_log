@@ -1,0 +1,6 @@
+# ninja log v5
+6	635	7172490492864080	CMakeFiles/1.dir/main.cpp.obj	e1ffb3a3c24b4f31
+783	1098	7172872331554367	1.exe	493074af7f03ad45
+11	133	7172872321934396	CMakeFiles/1.dir/tests/tests.cpp.obj	5059685c2f83bc4c
+2	774	7172872328354511	CMakeFiles/1.dir/src/main.cpp.obj	e713d6851cd85fe4
+17	783	7172872328434395	CMakeFiles/1.dir/src/convertTimeTo24h.cpp.obj	598b0be0c9ce5505

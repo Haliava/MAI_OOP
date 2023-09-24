@@ -1,0 +1,4 @@
+C:/Users/La Cretura/CLionProjects/oopLabs/1/cmake-build-debug/CMakeFiles/1.dir
+C:/Users/La Cretura/CLionProjects/oopLabs/1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/La Cretura/CLionProjects/oopLabs/1/cmake-build-debug/CMakeFiles/test.dir
+C:/Users/La Cretura/CLionProjects/oopLabs/1/cmake-build-debug/CMakeFiles/edit_cache.dir
