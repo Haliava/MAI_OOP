@@ -7,16 +7,21 @@
 class Array {
 public:
     Array();
-    Array(const size_t& n, unsigned char t = 0);
+    Array(const std::string &a);
     Array(const std::initializer_list<unsigned char> &t);
-    Array(const std::string &t);
-
-    Array(const Array& other);
-    Array(Array&& other) noexcept;
-    virtual ~Array() noexcept;
-
+    Array(const size_t &n, unsigned char t = 0);
+    Array(const Array &other);
+    void push_back(unsigned char value);
+    void clear();
+    int get_size();
+    int get_size() const;
+    unsigned char &operator[](int index);
+    unsigned char &operator[](int index) const;
+    bool operator==(const Array& other) const;
 private:
-    unsigned char array[];
+    unsigned char *data;
+    int size;
+    int capacity;
 };
 
 

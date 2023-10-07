@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../include/Three.h"
+#include "Three.h"
 
 const int BASE = 3;
 
@@ -17,22 +17,27 @@ Three::Three(int number) {
 Three::Three(const std::string &source) {
     this->number.clear();
 
+    Array tempArr;
     for (char i: source) {
-        this->number.insert(this->number.begin(), i);
+        tempArr.push_back(i);
+    }
+
+    for (int i = tempArr.get_size() - 1; i >= 0; --i) {
+        this->number.push_back(source[i]);
     }
 
     this->print();
 }
 
-Three::Three(const std::vector<unsigned char> &source) {
+Three::Three(const Array &source) {
     this->number = source;
 }
 
 Three Three::operator+(const Three &other) {
-    std::vector<unsigned char> result;
-    int minLength = std::min(this->number.size(), other.number.size());
-    int maxLength = std::max(this->number.size(), other.number.size());
-    bool isLonger = this->number.size() > other.number.size();
+    Array result;
+    int minLength = std::min(this->number.get_size(), other.number.get_size());
+    int maxLength = std::max(this->number.get_size(), other.number.get_size());
+    bool isLonger = this->number.get_size() > other.number.get_size();
     bool hasOverflow;
     int current;
 
@@ -60,14 +65,14 @@ Three Three::operator+(const Three &other) {
 }
 
 Three Three::operator-(Three &other) {
-    if (other.number.size() > this->number.size() || *this < other)
+    if (other.number.get_size() > this->number.get_size() || *this < other)
         return {0};
 
-    std::vector<unsigned char> resultArr;
+    Array resultArr;
     bool hasOverflow;
     int current;
 
-    for (int i = 0; i < other.number.size(); ++i) {
+    for (int i = 0; i < other.number.get_size(); ++i) {
         current = (hasOverflow && this->number[i] == '0' ?
                    BASE :
                    this->number[i] - '0') - hasOverflow - (other.number[i] - '0');
@@ -79,7 +84,7 @@ Three Three::operator-(Three &other) {
         resultArr.push_back(std::to_string(current)[0]);
     }
 
-    for (int i = other.number.size(); i < this->number.size(); ++i) {
+    for (int i = other.number.get_size(); i < this->number.get_size(); ++i) {
         current = this->number[i] - '0' + BASE * (int) hasOverflow;
         hasOverflow = current / BASE > 0;
         resultArr.push_back(
@@ -93,16 +98,16 @@ Three Three::operator-(Three &other) {
 }
 
 void Three::print() {
-    for (int i = this->number.size() - 1; i >= 0; --i) {
+    for (int i = this->number.get_size() - 1; i >= 0; --i) {
         std::cout << this->number[i];
     }
     std::cout << std::endl;
 }
 
 bool Three::operator==(const Three &other) {
-    if (other.number.size() != this->number.size()) return false;
+    if (other.number.get_size() != this->number.get_size()) return false;
 
-    for (int i = 0; i < other.number.size(); ++i) {
+    for (int i = 0; i < other.number.get_size(); ++i) {
         if (this->number[i] != other.number[i])
             return false;
     }
@@ -111,10 +116,10 @@ bool Three::operator==(const Three &other) {
 }
 
 bool Three::operator>(const Three &other) {
-    if (this->number.size() != other.number.size() || this == &other)
-        return this->number.size() > other.number.size();
+    if (this->number.get_size() != other.number.get_size() || this == &other)
+        return this->number.get_size() > other.number.get_size();
 
-    for (int i = this->number.size() - 1; i >= 0; --i) {
+    for (int i = this->number.get_size() - 1; i >= 0; --i) {
         if (this->number[i] != other.number[i])
             return this->number[i] > other.number[i];
     }
@@ -123,8 +128,8 @@ bool Three::operator>(const Three &other) {
 }
 
 bool Three::operator<(const Three &other) {
-    if (this->number.size() != other.number.size() || this == &other)
-        return this->number.size() > other.number.size();
+    if (this->number.get_size() != other.number.get_size() || this == &other)
+        return this->number.get_size() > other.number.get_size();
 
     return !(Three{this->number} > Three{other});
 }
@@ -134,15 +139,20 @@ unsigned char Three::operator[](int i) {
 }
 
 Three Three::removeLeadingZeros(const Three &source) {
-    int i = source.number.size() - 1;
+    int i = source.number.get_size() - 1;
     while (i >= 0) {
         if (source.number[i] == '0') --i;
         else break;
     }
 
-    std::vector<unsigned char> newNumber;
+    Array tempNewNumber;
     for (; i >= 0; --i) {
-        newNumber.insert(newNumber.begin(), source.number[i]);
+        tempNewNumber.push_back(source.number[i]);
+    }
+
+    Array newNumber;
+    for (int j = tempNewNumber.get_size() - 1; j >= 0; --j) {
+        newNumber.push_back(tempNewNumber[i]);
     }
     Three a{newNumber};
     a.print();

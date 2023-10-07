@@ -5,7 +5,7 @@ using namespace std;
 
 TEST(ThreeTest, Simple) {
     Three simpleNumber {112};
-    std::vector<unsigned char> result {'2', '1', '1'};
+    Array result {'2', '1', '1'};
     ASSERT_TRUE(simpleNumber == Three{result});
 }
 
@@ -42,7 +42,6 @@ TEST(ThreeTest_Reduction, SmallerMinusBigger) {
     Three test1 {111};
     Three test2 {222};
     Three errResult {0};
-    Three result {111};
     (test1 - test2).print();
     ASSERT_TRUE(test1 - test2 == errResult);
 }

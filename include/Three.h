@@ -1,13 +1,15 @@
 #ifndef LAB2_THREE_H
 #define LAB2_THREE_H
+
 #include "string"
 #include "vector"
+#include "Array.h"
 
 class Three {
     public:
         Three(int number);
         Three(const std::string& source);
-        Three(const std::vector<unsigned char>& source);
+        Three(const Array& source);
 
         Three operator+ (const Three& other);
         Three operator- (Three& other);
@@ -18,7 +20,7 @@ class Three {
         void print();
         Three removeLeadingZeros(const Three& source);
     private:
-        std::vector<unsigned char> number;
+        Array number;
 };
 
 #endif //LAB2_THREE_H
