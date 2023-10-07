@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Three.h"
+#include "../include/Three.h"
 
 const int BASE = 3;
 

@@ -7,6 +7,7 @@
 class Array {
 public:
     Array();
+    ~Array();
     Array(const std::string &a);
     Array(const std::initializer_list<unsigned char> &t);
     Array(const size_t &n, unsigned char t = 0);

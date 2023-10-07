@@ -1,5 +1,5 @@
 #include "../googletest/googletest/include/gtest/gtest.h"
-#include "../src/Three.cpp"
+#include "../include/Three.h"
 
 using namespace std;
 

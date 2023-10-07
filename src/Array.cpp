@@ -1,4 +1,4 @@
-#include "Array.h"
+#include "../include/Array.h"
 
 Array::Array() : data(nullptr), size(0), capacity(0) {}
 
@@ -7,6 +7,8 @@ Array::Array(const std::string &a) : data(nullptr), size(0), capacity(0) {
         this->push_back(a[i]);
     }
 }
+
+Array::~Array() = default;
 
 Array::Array(const std::initializer_list<unsigned char> &t) : data(nullptr), size(t.size()), capacity(t.size()) {
     for (const unsigned char &value: t) {

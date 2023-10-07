@@ -1,6 +1,6 @@
 #include <iostream>
 #include <map>
-#include "Three.h"
+#include "../include/Three.h"
 
 enum OPERATIONS {
     ADD,
