@@ -20,12 +20,13 @@ int main() {
             {">", MORE}, {"<", LESS},
             {"=", EQ}
     };
-    Three result {0};
-    bool boolResult;
 
-    std::cin >> inputNum1 >> inputNum2 >> operation;
+    std::cin >> inputNum1 >> operation >> inputNum2;
     Three num1 {inputNum1};
     Three num2 {inputNum2};
+
+    Three result {0};
+    bool boolResult;
 
     switch (operationsMap[operation]) {
         case ADD:

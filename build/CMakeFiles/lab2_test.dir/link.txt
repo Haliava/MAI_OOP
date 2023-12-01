@@ -1,0 +1,1 @@
+/usr/bin/c++ -rdynamic CMakeFiles/lab2_test.dir/test/test.cpp.o -o lab2_test  liblab2_lib.a lib/libgtest.a lib/libgtest_main.a lib/libgtest.a 

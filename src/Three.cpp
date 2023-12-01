@@ -4,8 +4,6 @@
 const int BASE = 3;
 
 Three::Three(int number) {
-    this->number.clear();
-
     while (number > 0) {
         this->number.push_back(std::to_string(number % 10)[0]);
         number /= 10;
@@ -15,14 +13,7 @@ Three::Three(int number) {
 }
 
 Three::Three(const std::string &source) {
-    this->number.clear();
-
-    Array tempArr;
-    for (char i: source) {
-        tempArr.push_back(i);
-    }
-
-    for (int i = tempArr.get_size() - 1; i >= 0; --i) {
+    for (int i = source.length() - 1; i >= 0; --i) {
         this->number.push_back(source[i]);
     }
 
@@ -64,9 +55,9 @@ Three Three::operator+(const Three &other) {
     return {result};
 }
 
-Three Three::operator-(Three &other) {
+Three Three::operator-(const Three &other) {
     if (other.number.get_size() > this->number.get_size() || *this < other)
-        return {0};
+        throw std::invalid_argument("Can't subtract bigger number from the smaller one");
 
     Array resultArr;
     bool hasOverflow;
@@ -92,7 +83,7 @@ Three Three::operator-(Three &other) {
                 std::to_string(current - BASE)[0] :
                 std::to_string(current % BASE)[0]);
     }
-
+    (Three{resultArr}).print();
     Three result{this->removeLeadingZeros(Three{resultArr})};
     return {result};
 }
@@ -145,17 +136,11 @@ Three Three::removeLeadingZeros(const Three &source) {
         else break;
     }
 
-    Array tempNewNumber;
-    for (; i >= 0; --i) {
-        tempNewNumber.push_back(source.number[i]);
-    }
-
+    std::cout << i << " dd" << std::endl;
     Array newNumber;
-    for (int j = tempNewNumber.get_size() - 1; j >= 0; --j) {
-        newNumber.push_back(tempNewNumber[i]);
+    for (int j = 0; j <= i; ++j) {
+        newNumber.push_back(source.number[j]);
     }
-    Three a{newNumber};
-    a.print();
 
     return {newNumber};
 }

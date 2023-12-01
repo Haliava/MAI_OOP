@@ -1,0 +1,2 @@
+/usr/bin/ar qc liblab2_lib.a CMakeFiles/lab2_lib.dir/src/Array.cpp.o CMakeFiles/lab2_lib.dir/src/Three.cpp.o CMakeFiles/lab2_lib.dir/src/main.cpp.o
+/usr/bin/ranlib liblab2_lib.a

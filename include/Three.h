@@ -12,7 +12,7 @@ class Three {
         Three(const Array& source);
 
         Three operator+ (const Three& other);
-        Three operator- (Three& other);
+        Three operator- (const Three& other);
         unsigned char operator[] (int i);
         bool operator== (const Three& other);
         bool operator> (const Three& other);

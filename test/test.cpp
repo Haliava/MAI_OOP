@@ -5,7 +5,7 @@ using namespace std;
 
 TEST(ThreeTest, Simple) {
     Three simpleNumber {112};
-    Array result {'2', '1', '1'};
+    std::string result {"112"};
     ASSERT_TRUE(simpleNumber == Three{result});
 }
 
@@ -13,6 +13,7 @@ TEST(ThreeTest_Addition, Basic) {
     Three test1 {101010101};
     Three test2 {110101010};
     Three result {211111111};
+    (test1 + test2).print();
     ASSERT_TRUE(test1 + test2 == result);
 }
 
@@ -20,6 +21,7 @@ TEST(ThreeTest_Addition, WithOverflow) {
     Three test1 {122};
     Three test2 {211};
     Three result {1110};
+    (test1 + test2).print();
     ASSERT_TRUE(test1 + test2 == result);
 }
 
@@ -35,15 +37,14 @@ TEST(ThreeTest_Reduction, LeadingZeros) {
     Three test1 {111010101};
     Three test2 {100101010};
     Three result {10202021};
+    (test1 - test2).print();
     ASSERT_TRUE(test1 - test2 == result);
 }
 
 TEST(ThreeTest_Reduction, SmallerMinusBigger) {
     Three test1 {111};
     Three test2 {222};
-    Three errResult {0};
-    (test1 - test2).print();
-    ASSERT_TRUE(test1 - test2 == errResult);
+    ASSERT_ANY_THROW(test1 - test2);
 }
 
 TEST(ThreeTest_Compare, Smaller) {

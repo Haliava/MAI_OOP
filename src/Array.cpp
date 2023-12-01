@@ -1,17 +1,22 @@
 #include "../include/Array.h"
 
-Array::Array() : data(nullptr), size(0), capacity(0) {}
+Array::Array() : size(0), capacity(1) {
+    data = reinterpret_cast<unsigned char*>(new int8_t[sizeof(unsigned char)]);
+}
 
-Array::Array(const std::string &a) : data(nullptr), size(0), capacity(0) {
-    for (int i = 0; i < a.length(); i++) {
-        this->push_back(a[i]);
+Array::Array(const std::string &a) : Array() {
+    for (char c: a) {
+        this->push_back(c);
     }
+
+    this->size = a.length();
+    this->capacity = a.length();
 }
 
 Array::~Array() = default;
 
 Array::Array(const std::initializer_list<unsigned char> &t) : data(nullptr), size(t.size()), capacity(t.size()) {
-    for (const unsigned char &value: t) {
+    for (const unsigned char value: t) {
         this->push_back(value);
     }
 }
@@ -30,31 +35,44 @@ Array::Array(const Array &other) : data(nullptr), size(other.size), capacity(oth
 }
 
 void Array::push_back(unsigned char value) {
-    if (capacity == size) {
-        capacity += 1;
+    if (this->capacity == this->size) {
+        if (this->capacity * 2 < this->capacity)
+            throw std::out_of_range("too big");
+
+        reserve(2 * this->capacity);
     }
 
-    auto *newData = new unsigned char[capacity];
+    new (this->data + this->size) unsigned char(value);
+    ++this->size;
+}
 
-    for (int i = 0; i < size; i++) {
-        newData[i] = data[i];
+void Array::reserve(size_t newCapacity) {
+    if (newCapacity <= this->capacity)
+        return;
+
+    auto* newData = reinterpret_cast<unsigned char*>(new int8_t[sizeof(unsigned char) * newCapacity]);
+    try {
+        std::uninitialized_copy(this->data, this->data + this->size, newData);
+    } catch (...) {
+        delete[] reinterpret_cast<int8_t*>(newData); // 1 byte
+        throw;
     }
 
-    delete[] data;
-    data = newData;
-    data[size++] = value;
+    delete[] reinterpret_cast<int8_t*>(this->data); // 1 byte
+    this->data = newData;
+    this->capacity = newCapacity;
 }
 
 int Array::get_size() {
     return size;
 }
 
-unsigned char &Array::operator[](int index) {
+unsigned char &Array::operator[](size_t index) {
     if (index < size)
         return data[index];
 }
 
-unsigned char &Array::operator[](int index) const {
+unsigned char &Array::operator[](size_t index) const {
     if (index < size)
         return data[index];
 }
